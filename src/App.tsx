@@ -1,9 +1,13 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import GUI from "lil-gui";
 
 import "./App.css";
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+// UIデバッグ
+const gui = new GUI();
 
 // シーン
 const scene = new THREE.Scene();
@@ -33,6 +37,10 @@ const material = new THREE.MeshPhysicalMaterial({
   roughness: 0.37,
   flatShading: true,
 });
+
+gui.addColor(material, "color");
+gui.add(material, "metalness", 0, 1, 0.001);
+gui.add(material, "roughness", 0, 1, 0.001);
 
 // メッシュ
 const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
