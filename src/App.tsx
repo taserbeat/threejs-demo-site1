@@ -63,7 +63,21 @@ scene.add(directionalLight);
 const App = () => {
   const refDiv = useRef<HTMLDivElement>(null);
 
+  const handleonBrowserResize = () => {
+    // カメラの修正
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    // レンダラーのリサイズ
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    return;
+  };
+
   useEffect(() => {
+    window.addEventListener("resize", handleonBrowserResize);
+
     refDiv.current?.appendChild(renderer.domElement);
 
     const updateRender = () => {
@@ -76,6 +90,7 @@ const App = () => {
 
     return () => {
       refDiv.current?.removeChild(renderer.domElement);
+      window.removeEventListener("resize", handleonBrowserResize);
     };
   }, []);
 
