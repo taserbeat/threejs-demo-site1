@@ -61,6 +61,34 @@ const meshes = [mesh1, mesh2, mesh3, mesh4];
 
 scene.add(...meshes);
 
+/**
+ * パーティクルを追加
+ */
+
+// ジオメトリ
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesCount = 700;
+const particlesPositionArray = new Float32Array(particlesCount * 3);
+
+for (let i = 0; i < particlesCount * 3; i++) {
+  particlesPositionArray[i] = (Math.random() - 0.5) * 10;
+}
+
+particlesGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(particlesPositionArray, 3)
+);
+
+// マテリアル
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.025,
+  color: "#ffffff",
+});
+
+// メッシュ化
+const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particles);
+
 // ライト
 const directionalLight = new THREE.DirectionalLight("#ffffff", 4);
 directionalLight.position.set(0.5, 1, 0);
