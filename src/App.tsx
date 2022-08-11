@@ -123,17 +123,25 @@ const App = () => {
       speed *= 0.93;
 
       // ジオメトリ全体を回転
-      mesh1.position.x = 2 + 3.8 * Math.cos(rotation);
-      mesh1.position.z = -3 + 3.8 * Math.sin(rotation);
+      // NOTE: 計算式の図解は次のファイルを参照
+      // threejs-demo-site1/docs/sec12-98.drawio.png
 
-      mesh2.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI / 2);
-      mesh2.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI / 2);
+      const [xBase, zBase] = [2, -3];
+      const radius = 3.8;
 
-      mesh3.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI);
-      mesh3.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI);
+      mesh1.position.x = xBase + radius * Math.cos(rotation);
+      mesh1.position.z = zBase + radius * Math.sin(rotation);
 
-      mesh4.position.x = 2 + 3.8 * Math.cos(rotation + 3 * (Math.PI / 2));
-      mesh4.position.z = -3 + 3.8 * Math.sin(rotation + 3 * (Math.PI / 2));
+      mesh2.position.x = xBase + radius * Math.cos(rotation + Math.PI / 2);
+      mesh2.position.z = zBase + radius * Math.sin(rotation + Math.PI / 2);
+
+      mesh3.position.x = xBase + radius * Math.cos(rotation + Math.PI);
+      mesh3.position.z = zBase + radius * Math.sin(rotation + Math.PI);
+
+      mesh4.position.x =
+        xBase + radius * Math.cos(rotation + (Math.PI * 3) / 2);
+      mesh4.position.z =
+        zBase + radius * Math.sin(rotation + (Math.PI * 3) / 2);
 
       requestAnimationFrame(rotateByWheel);
     };
