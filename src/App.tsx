@@ -70,6 +70,9 @@ scene.add(directionalLight);
 // クロック
 const clock = new THREE.Clock();
 
+let speed = 0;
+let rotation = 0;
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 /** アプリケーションのルートコンポーネント */
@@ -88,8 +91,15 @@ const App = () => {
     return;
   };
 
+  const handleOnWheel = (event: WheelEvent) => {
+    speed += event.deltaY * 0.0002;
+  };
+
   useEffect(() => {
     window.addEventListener("resize", handleonBrowserResize);
+
+    // ホイールを実装
+    window.addEventListener("wheel", handleOnWheel);
 
     refDiv.current?.appendChild(renderer.domElement);
 
@@ -108,11 +118,21 @@ const App = () => {
       requestAnimationFrame(updateRender);
     };
 
+    const rotateByWheel = () => {
+      rotation += speed;
+      speed *= 0.93;
+      mesh1.position.x = rotation;
+
+      requestAnimationFrame(rotateByWheel);
+    };
+
     updateRender();
+    rotateByWheel();
 
     return () => {
       refDiv.current?.removeChild(renderer.domElement);
       window.removeEventListener("resize", handleonBrowserResize);
+      window.removeEventListener("wheel", handleOnWheel);
     };
   }, []);
 
