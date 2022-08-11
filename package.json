@@ -9,6 +9,7 @@
     "serve": "vite preview --port 3000 --open http://localhost:3000"
   },
   "dependencies": {
+    "lil-gui": "^0.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.143.0"
