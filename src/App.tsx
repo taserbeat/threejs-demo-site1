@@ -121,7 +121,19 @@ const App = () => {
     const rotateByWheel = () => {
       rotation += speed;
       speed *= 0.93;
-      mesh1.position.x = rotation;
+
+      // ジオメトリ全体を回転
+      mesh1.position.x = 2 + 3.8 * Math.cos(rotation);
+      mesh1.position.z = -3 + 3.8 * Math.sin(rotation);
+
+      mesh2.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI / 2);
+      mesh2.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI / 2);
+
+      mesh3.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI);
+      mesh3.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI);
+
+      mesh4.position.x = 2 + 3.8 * Math.cos(rotation + 3 * (Math.PI / 2));
+      mesh4.position.z = -3 + 3.8 * Math.sin(rotation + 3 * (Math.PI / 2));
 
       requestAnimationFrame(rotateByWheel);
     };
